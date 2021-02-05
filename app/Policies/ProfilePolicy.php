@@ -53,7 +53,7 @@ class ProfilePolicy
      */
     public function update(User $user, Profile $profile)
     {
-        return auth()->user()->moderator == true || $user->id == $profile->user->id || auth()->user()->admin == true;
+        return $user->id == $profile->user->id;
     }
 
     /**

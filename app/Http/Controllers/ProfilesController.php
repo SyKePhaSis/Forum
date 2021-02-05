@@ -20,7 +20,7 @@ class ProfilesController extends Controller
         return view("profiles.edit", compact('user'));
     }
 
-    public function update(User $user)
+    public function update()
     {
         $data = request()->validate([
             'url' => 'url|nullable',
@@ -29,24 +29,24 @@ class ProfilesController extends Controller
             'image' => 'image'
         ]);
 
-        $user->profile->deleteImage();
+        auth()->user()->profile->deleteImage();
 
         if (request('image')) {
             $imagePath = request('image')->store('profile_pics', 'public');
         }
 
-        if(!request('image') && $user->profile->image == NULL){
+        if(!request('image') && auth()->user()->profile->image == NULL){
             $imagePath = "profile_pics/default_profile.png";
         }
 
-        $user->profile->update([
+        auth()->user()->profile->update([
             'url' => $data['url'],
             'description' => $data['description'],
             'business_email' => $data['business_email'],
             'image' => $imagePath,
         ]);
 
-        return redirect("/profile/" . $user->id );
+        return redirect("/profile/" . auth()->user()->id );
 
     }
 }

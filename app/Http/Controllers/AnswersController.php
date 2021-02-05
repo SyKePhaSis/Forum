@@ -35,7 +35,7 @@ class AnswersController extends Controller
 
     }
 
-    public function update(Question $question, Answer $answer){
+    public function update(Answer $answer){
 
         $data = request()->validate([
             'answer' => 'required',
@@ -50,7 +50,7 @@ class AnswersController extends Controller
         return redirect('/question/' . $answer->question->id);
     }
 
-    public function delete(Question $question, Answer $answer){
+    public function delete(Answer $answer){
 
         $answer->delete();
 

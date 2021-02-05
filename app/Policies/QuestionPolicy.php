@@ -53,7 +53,7 @@ class QuestionPolicy
      */
     public function update(User $user, Question $question)
     {
-        return auth()->user()->moderator == true || $user->id == $question->user->id || auth()->user()->admin == true;
+        return $user->id == $question->user->id;
     }
 
     /**

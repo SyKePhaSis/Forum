@@ -13,21 +13,19 @@ class QuestionsController extends Controller
         return view('questions.create');
     }
 
-    public function store(User $user){
+    public function store(){
 
         $data = request()->validate([
             'question' => 'string|required',
             'description' => 'string|nullable'
         ]);
 
-        dd($user);
-
-        $user->questions->create([
+        auth()->user()->questions()->create([
             'question' => $data['question'],
             'description' => $data['description'],
         ]);
 
-        return redirect('/profile/' . $user->id );
+        return redirect('/profile/' . auth()->user()->id );
 
     }
 

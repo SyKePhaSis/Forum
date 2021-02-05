@@ -13,11 +13,8 @@
                 <h1 class="text-center text-capitalize" style="border-bottom: 3px darkblue solid; border-radius: 10px; font-size: 3vw;">{{ $user->username }}</h1>
                 <div style="font-size: 1.5vw; border-bottom: 3px darkblue solid; border-radius: 8px;">
 
-                @if(auth()->user()->id == $user->id or auth()->user()->moderator == True)
+                @can('update', $user->profile)
                     <a href='{{ route("profile.edit", ['user' => $user->id ]) }}'>Edit Profile</a>
-                @endif
-
-                @if(auth()->user()->id == $user->id or auth()->user()->moderator == True)
                     <a href='{{ route("question.create")}}' style="border-left: 2px darkblue solid;" class="pl-2">Add Question</a>
                 @endcan
 
